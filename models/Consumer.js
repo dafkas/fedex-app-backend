@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const consumerSchema = new mongoose.Schema({
-  adres: {
+  adress: {
     type: String,
     required: true,
     required: "adres is required"
