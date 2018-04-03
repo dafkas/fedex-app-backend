@@ -1,7 +1,10 @@
+require('dotenv').config({ path: 'variables.env' });
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('../routes');
+const mongoose = require('mongoose');
 const session = require('express-session');
 const errorHandlers = require('../handlers/errorHandlers');
 
@@ -14,11 +17,13 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Express Session Middleware
 app.use(
     session({
-        secret: process.env.SECRET,
+        secret: 'secret',
         resave: false,
         saveUninitialized: false
     })
 );
+
+app.set('port', process.env.PORT);
 
 // global variables
 app.use((req, res, next) => {
@@ -42,5 +47,11 @@ if (app.get('env') === 'development') {
 
 // production error handler
 app.use(errorHandlers.productionErrors);
+
+mongoose.connect(process.env.DATABASE);
+mongoose.Promise = global.Promise;
+mongoose.connection.on('error', err => {
+    console.error(`Error→ ${err.message}`);
+});
 
 module.exports = app;

@@ -5,8 +5,7 @@
     "main": "app.js",
     "scripts": {
         "prod": "node start.js",
-        "watch": "nodemon start.js",
-        "start": "concurrently \"npm run watch\" --names --env development"
+        "start": "nodemon setup/index.js"
     },
     "keywords": [
         "fedex",
@@ -19,6 +18,7 @@
         "body-parser": "^1.18.2",
         "dotenv": "^4.0.0",
         "express": "^4.16.3",
+        "express-session": "^1.15.6",
         "mongoose": "^5.0.12",
         "socket.io": "^2.1.0"
     },
