@@ -1,30 +1,31 @@
 {
-  "name": "fedex-app",
-  "version": "1.0.0",
-  "description": "fedex-app backend",
-  "main": "app.js",
-  "scripts": {
-    "prod": "node start.js",
-    "watch": "nodemon start.js",
-    "start": "concurrently \"npm run watch\" --names --env development"
-  },
-  "keywords": [
-    "fedex",
-    "backend",
-    "app"
-  ],
-  "author": "marvin",
-  "license": "ISC",
-  "dependencies": {
-    "dotenv": "^4.0.0",
-    "express": "^4.16.3",
-    "mongoose": "^5.0.12",
-    "socket-io": "^1.0.0"
-  },
-  "devDependencies": {
-    "autoprefixer": "6.7.7",
-    "browser-sync": "^2.18.13",
-    "concurrently": "3.4.0",
-    "nodemon": "1.11.0"
-  }
+    "name": "fedex-app",
+    "version": "1.0.0",
+    "description": "fedex-app backend",
+    "main": "app.js",
+    "scripts": {
+        "prod": "node start.js",
+        "watch": "nodemon start.js",
+        "start": "concurrently \"npm run watch\" --names --env development"
+    },
+    "keywords": [
+        "fedex",
+        "backend",
+        "app"
+    ],
+    "author": "marvin",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.18.2",
+        "dotenv": "^4.0.0",
+        "express": "^4.16.3",
+        "mongoose": "^5.0.12",
+        "socket.io": "^2.1.0"
+    },
+    "devDependencies": {
+        "autoprefixer": "6.7.7",
+        "browser-sync": "^2.18.13",
+        "concurrently": "3.4.0",
+        "nodemon": "1.11.0"
+    }
 }
