@@ -7,9 +7,9 @@
 */
 
 exports.catchErrors = fn =>
-    function(req, res, next) {
-        return fn(req, res, next).catch(next);
-    };
+  function(req, res, next) {
+    return fn(req, res, next).catch(next);
+  };
 
 /*
 Development Error Handlder
@@ -18,18 +18,18 @@ we hit a syntax error or any other previously un-handled error,
 we can show good info on what happened
 */
 exports.developmentErrors = (err, req, res, next) => {
-    err.stack = err.stack || '';
-    const errorDetails = {
-        message: err.message,
-        status: err.status,
-        stackHighlighted: err.stack.replace(
-            /[a-z_-\d]+.js:\d+:\d+/gi,
-            '<mark>$&</mark>'
-        )
-    };
-    res.status(err.status || 500);
+  err.stack = err.stack || "";
+  const errorDetails = {
+    message: err.message,
+    status: err.status,
+    stackHighlighted: err.stack.replace(
+      /[a-z_-\d]+.js:\d+:\d+/gi,
+      "<mark>$&</mark>"
+    )
+  };
+  res.status(err.status || 500);
 
-    return res.json(errorDetails); // Ajax call, send JSON back
+  return res.json(errorDetails); // Ajax call, send JSON back
 };
 
 /*
@@ -37,9 +37,9 @@ Production Error Handler
 No stacktraces are leaked to user
 */
 exports.productionErrors = (err, req, res, next) => {
-    res.status(err.status || 500);
-    res.send({
-        message: err.message,
-        error: {}
-    });
+  res.status(err.status || 500);
+  res.send({
+    message: err.message,
+    error: {}
+  });
 };
