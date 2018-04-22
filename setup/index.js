@@ -8,8 +8,8 @@ const server = app.listen(app.get('port'), () => {
     console.log(`Express running → PORT ${server.address().port}`);
 });
 
-io.listen(server);
-io.on('connection', socket => {
+const ioServer = io.listen(server);
+ioServer.on('connection', socket => {
     console.log('client connected');
     socket.on('package:change-home-notification', data => {
         updatePackageStatus(data);
