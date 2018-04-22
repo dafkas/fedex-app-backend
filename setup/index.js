@@ -1,5 +1,6 @@
 const app = require('./app');
-const io = require('socket.io');
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 const { updatePackageStatus } = require('../services/packageDeliveryService');
 
@@ -8,7 +9,6 @@ const server = app.listen(app.get('port'), () => {
     console.log(`Express running → PORT ${server.address().port}`);
 });
 
-io.listen(server);
 io.on('connection', socket => {
     console.log('client connected');
     socket.on('package:change-home-notification', data => {
