@@ -1,12 +1,20 @@
-const Package = require('../models/Package');
-const Deliverer = require('../models/Deliverer');
+const Delivery = require('../models/Delivery');
 
-const updatePackageStatus = async (id, status) => {
-    await Package.findOneAndUpdate({ _id: id }, { status }).exec();
+const updateDeliveryStatus = async (deliveryId, isAtHome) => {
+    await Delivery.findOneAndUpdate({ _id: deliveryId }, { status }).exec();
+    // TODO: send out socket to deliverer client to refresh
+
+    return res.status(202).json({ message: 'succes' });
+};
+
+const updateDeliveryNotification = async (deliveryId, note) => {
+    await Delivery.findOneAndUpdate({ _id: deliveryId }, { note }).exec();
+    // TODO: send out socket to deliverer client to refresh
 
     return res.status(202).json({ message: 'succes' });
 };
 
 module.exports = {
-    updatePackageStatus
+    updateDeliveryStatus,
+    updateDeliveryNotification
 };

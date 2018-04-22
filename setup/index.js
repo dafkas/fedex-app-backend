@@ -1,9 +1,10 @@
 const app = require('./app');
-const httpServer = require('http').createServer(app);
 const io = require('socket.io');
-// const ioServer = io(httpServer);
 
-const { updatePackageStatus } = require('../services/packageDeliveryService');
+const {
+    updateDeliveryStatus,
+    updateDeliveryNotification
+} = require('../services/packageDeliveryService');
 
 app.set('port', process.env.PORT || 7000);
 const server = app.listen(app.get('port'), () => {
@@ -14,9 +15,11 @@ const ioServer = io(server);
 
 ioServer.on('connection', socket => {
     console.log('client connected');
-    socket.on('package:change-home-notification', data => {
-        console.log('DATA', data);
-        updatePackageStatus(data);
+    socket.on('delivery:change-home-notification', ({ id, isAtHome }) => {
+        updateDeliveryStatus(id, isAtHome);
+    });
+    socket.on('delivery:change-note', ({ id, note }) => {
+        updateDeliveryNotification(id, note);
     });
 });
 
