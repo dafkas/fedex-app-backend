@@ -24,7 +24,7 @@ const create = async (req, res) => {
 
 const getDeliveries = async (req, res) => {
     const deliveries = await Delivery.find({
-        deliverer: req.params.id
+        deliverer: req.params.delivererId
     }).populate('packages', ['barcode']);
 
     return res.status(200).json({ deliveries });

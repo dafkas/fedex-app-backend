@@ -17,7 +17,10 @@ router.post(
 );
 
 router.post('/delivery', catchErrors(deliveryController.create));
-router.get('/delivery', catchErrors(deliveryController.getDeliveries));
+router.get(
+    '/delivery/:delivererId',
+    catchErrors(deliveryController.getDeliveries)
+);
 
 router.use('*', (req, res) =>
     res.status(404).json({
