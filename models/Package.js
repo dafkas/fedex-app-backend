@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
 
 const packageSchema = new mongoose.Schema({
-    barcode: {
-        type: String,
-        required: true
+    address: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Address'
+    },
+    consumer: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Consumer',
+        required: 'Consumer is required'
     },
     deliveries: [
         {
