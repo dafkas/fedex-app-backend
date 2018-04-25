@@ -22,7 +22,6 @@ const updateDeliveriesForDelivery = async delivererId => {
     }).populate({ path: 'package', select: 'consumer' });
 
     //TODO: HIER VERDER
-    console.log(deliveries);
     // deliveries afgaan, checken consumer id = gelijk, zo ja delivery verwijderen en toevoegen aan huidige
     // delete pakketjes
 };
