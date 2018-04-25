@@ -18,22 +18,26 @@ const ioServer = io(server);
 
 ioServer.on('connection', socket => {
     console.log('client connected');
-    socket.on('package:scanned', async args => {
+    socket.on('package:scanned', async payload => {
         // consumer = 5ac383eb7746fb3c67364b84
         // deliverer = 5ac38977f36d287dbca60345
-        const package = await createPackage(...args);
-        createDelivery(...args, package);
+        try {
+            const package = await createPackage(payload);
+            await createDelivery({ ...payload, package });
+        } catch (e) {
+            console.log(e);
+        }
     });
 
     socket.on('package:done-scanning', async ({ delivererId }) => {
         await updateDeliveriesForDelivery(deliveredId);
     });
 
-    socket.on('delivery:change-home-notification', async ({ ...args }) => {
-        await updateDeliveryAtHomeStatus(...args);
+    socket.on('delivery:change-home-notification', async payload => {
+        await updateDeliveryAtHomeStatus(...payload);
     });
-    socket.on('delivery:change-note', async ({ ...args }) => {
-        await updateDeliveryNotification(...args);
+    socket.on('delivery:change-note', async payload => {
+        await updateDeliveryNotification(...payload);
     });
 });
 

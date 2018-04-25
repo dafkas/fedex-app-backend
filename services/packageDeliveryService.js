@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Delivery = require('../models/Delivery');
 const Package = require('../models/Package');
 const Address = require('../models/Address');
@@ -34,8 +35,9 @@ const createDelivery = async ({ delivererId, package }) =>
 
 const createPackage = async ({ consumerId, ...address }) => {
     const { zip, number } = address;
-    const addressInstance = await Address.find({
-        $and: [zip, number]
+
+    let addressInstance = await Address.findOne({
+        $and: [{ zip }, { number }]
     });
 
     if (!addressInstance) {
