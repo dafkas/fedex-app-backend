@@ -18,7 +18,7 @@ const ioServer = io(server);
 
 ioServer.on('connection', socket => {
     console.log('client connected');
-    socket.on('package:scanned', async ({ ...args }) => {
+    socket.on('package:scanned', async args => {
         // consumer = 5ac383eb7746fb3c67364b84
         // deliverer = 5ac38977f36d287dbca60345
         const package = await createPackage(...args);

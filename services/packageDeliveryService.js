@@ -26,14 +26,14 @@ const updateDeliveriesForDelivery = async delivererId => {
     // delete pakketjes
 };
 
-const createDelivery = async (delivererId, package) =>
+const createDelivery = async ({ delivererId, package }) =>
     await new Delivery({
         deliverer: mongoose.Types.ObjectId(delivererId),
         packages: package._id
     }).save();
 
-const createPackage = async (consumerId, ...address) => {
-    const [zip, number] = address;
+const createPackage = async ({ consumerId, ...address }) => {
+    const { zip, number } = address;
     const addressInstance = await Address.find({
         $and: [zip, number]
     });
