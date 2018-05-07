@@ -17,7 +17,7 @@ const deliverySchema = new mongoose.Schema({
     note: {
         type: String
     },
-    hasPassed: {
+    hasPassedBatch: {
         type: Boolean
     }
 });

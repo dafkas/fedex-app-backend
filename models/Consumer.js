@@ -2,11 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const consumerSchema = new mongoose.Schema({
-    address: {
-        type: String,
-        required: true,
-        required: 'adres is required'
-    },
     email: {
         type: String,
         unique: true,

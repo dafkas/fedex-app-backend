@@ -18,19 +18,38 @@ const updateDeliveryNotification = async (deliveryId, note) => {
 };
 
 const updateDeliveriesForDelivery = async delivererId => {
-    const deliveries = await Delivery.find({
-        deliverer: mongoose.Types.ObjectId(delivererId)
-    }).populate({ path: 'package', select: 'consumer' });
+    const deliveryBatch = await Delivery.find({
+        $and: [
+            { deliverer: mongoose.Types.ObjectId(delivererId) },
+            { hasPassedBatch: false }
+        ]
+    }).populate({ path: 'packages', select: 'consumer' });
+    const doubleConsumerIds = [];
+    const uniqueDeliveries = [];
 
-    //TODO: HIER VERDER
-    // deliveries afgaan, checken consumer id = gelijk, zo ja delivery verwijderen en toevoegen aan huidige
-    // delete pakketjes
+    for (const delivery of deliveryBatch) {
+        const { consumer } = delivery.packages[0];
+        const id = String(consumer);
+
+        if (!doubleConsumerIds.includes(id)) {
+            doubleConsumerIds.push(id);
+            uniqueDeliveries.push(delivery);
+        } else {
+            await Delivery.findByIdAndRemove(delivery._id);
+        }
+    }
+
+    for (const delivery of uniqueDeliveries) {
+        // add packages of same consumer id to every delivery
+        
+    }
 };
 
 const createDelivery = async ({ delivererId, package }) =>
     await new Delivery({
         deliverer: mongoose.Types.ObjectId(delivererId),
-        packages: package._id
+        packages: package._id,
+        hasPassedBatch: false
     }).save();
 
 const createPackage = async ({ consumerId, ...address }) => {

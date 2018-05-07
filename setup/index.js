@@ -21,16 +21,13 @@ ioServer.on('connection', socket => {
     socket.on('package:scanned', async payload => {
         // consumer = 5ac383eb7746fb3c67364b84
         // deliverer = 5ac38977f36d287dbca60345
-        try {
-            const package = await createPackage(payload);
-            await createDelivery({ ...payload, package });
-        } catch (e) {
-            console.log(e);
-        }
+
+        const package = await createPackage(payload);
+        await createDelivery({ ...payload, package });
     });
 
     socket.on('package:done-scanning', async ({ delivererId }) => {
-        await updateDeliveriesForDelivery(deliveredId);
+        await updateDeliveriesForDelivery(delivererId);
     });
 
     socket.on('delivery:change-home-notification', async payload => {
