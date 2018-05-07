@@ -18,7 +18,8 @@ const updateDeliveryNotification = async (deliveryId, note) => {
 };
 
 const updateDeliveriesForDelivery = async delivererId => {
-    const deliveryBatch = await Delivery.find({
+    // HINT: Find all
+    const deliveryBatch = Delivery.find({
         $and: [
             { deliverer: mongoose.Types.ObjectId(delivererId) },
             { hasPassedBatch: false }
@@ -30,18 +31,19 @@ const updateDeliveriesForDelivery = async delivererId => {
     for (const delivery of deliveryBatch) {
         const { consumer } = delivery.packages[0];
         const id = String(consumer);
-
-        if (!doubleConsumerIds.includes(id)) {
+        // HINT: Find double consumers, when there is a double consumer..
+        if (doubleConsumerIds.includes(id)) {
+            // ..delete the double delivery
+            await Delivery.findByIdAndRemove(delivery._id);
+        } else {
+            // ..it is not yet a double consumer, so push to the array
             doubleConsumerIds.push(id);
             uniqueDeliveries.push(delivery);
-        } else {
-            await Delivery.findByIdAndRemove(delivery._id);
         }
     }
 
     for (const delivery of uniqueDeliveries) {
-        // add packages of same consumer id to every delivery
-        
+        // TODO: add packages of same consumer id to every delivery
     }
 };
 
