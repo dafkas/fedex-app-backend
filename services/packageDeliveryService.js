@@ -3,18 +3,26 @@ const Delivery = require('../models/Delivery');
 const Package = require('../models/Package');
 const Address = require('../models/Address');
 
-const updateDeliveryAtHomeStatus = async (deliveryId, isAtHome) => {
-    await Delivery.findOneAndUpdate({ _id: deliveryId }, { isAtHome }).exec();
+const updateDeliveryAtHomeStatus = async ({ deliveryId, atHome }) => {
+    // console.log();
+    await Delivery.findOneAndUpdate(
+        { _id: mongoose.Types.ObjectId(deliveryId) },
+        { isAtHome: atHome }
+    ).exec();
+    console.log('UPDATED', deliveryId, atHome);
     // TODO: send out socket to deliverer client to refresh
 
-    return res.status(202).json({ message: 'succes' });
+    // return res.status(202).json({ message: 'succes' });
 };
 
 const updateDeliveryNotification = async (deliveryId, note) => {
-    await Delivery.findOneAndUpdate({ _id: deliveryId }, { note }).exec();
+    await Delivery.findOneAndUpdate(
+        { _id: mongoose.Types.ObjectId(delivererId) },
+        { note }
+    ).exec();
     // TODO: send out socket to deliverer client to refresh
 
-    return res.status(202).json({ message: 'succes' });
+    // return res.status(202).json({ message: 'succes' });
 };
 
 const updateDeliveriesForDelivery = async delivererId => {
