@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const Delivery = require('../models/Delivery');
-const Package = require('../models/Package');
-const Address = require('../models/Address');
+const mongoose = require("mongoose");
+const Delivery = require("../models/Delivery");
+const Package = require("../models/Package");
+const Address = require("../models/Address");
 
 const updateDeliveryAtHomeStatus = async ({ deliveryId, atHome }) => {
     // console.log();
@@ -9,7 +9,7 @@ const updateDeliveryAtHomeStatus = async ({ deliveryId, atHome }) => {
         { _id: mongoose.Types.ObjectId(deliveryId) },
         { isAtHome: atHome }
     ).exec();
-    console.log('UPDATED', deliveryId, atHome);
+    console.log("UPDATED", deliveryId, atHome);
     // TODO: send out socket to deliverer client to refresh
 
     // return res.status(202).json({ message: 'succes' });
@@ -21,7 +21,7 @@ const updateDeliveryNotification = async (deliveryId, note) => {
         { note }
     ).exec();
     // TODO: send out socket to deliverer client to refresh
-
+    console.log("DONE");
     // return res.status(202).json({ message: 'succes' });
 };
 
@@ -32,7 +32,7 @@ const updateDeliveriesForDelivery = async delivererId => {
             { deliverer: mongoose.Types.ObjectId(delivererId) },
             { hasPassedBatch: false }
         ]
-    }).populate({ path: 'packages', select: 'consumer' });
+    }).populate({ path: "packages", select: "consumer" });
     const doubleConsumerIds = [];
     const uniqueDeliveries = [];
 
