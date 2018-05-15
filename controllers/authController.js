@@ -1,27 +1,25 @@
 const Consumer = require('../models/Consumer');
-const bcrypt = require('bcrypt');
+const mailHandler = require('../handlers/mailHandler');
 
-const register = async (req, res) => {
-    const { name, adres, email, phone, username } = req.body;
-
-    const password = await bcrypt.hash(req.body.password, 10, () => {});
-
-    const consumer = new Consumer({
-        name,
-        adres,
-        email,
-        phone,
-        username,
-        password
-    });
-    await consumer.save();
-
-    return res.status(200).json({
-        consumer,
-        message: `Succesfully signed up, ${username}!`
-    });
+exports.packageOrderPage = async (req, res) => {
+    await res.render('webshop');
 };
 
-module.exports = {
-    register
-};
+exports.createAccount = async (req, res) => {
+    const username = Math.floor(1000000 + Math.random() * 9000000000);
+    const userpassword = Math.random().toString(36).substr(2, 9)
+
+    const userData = {
+        username: username,
+        password: userpassword,
+        name: req.body.name,
+        email: req.body.email,
+        adress: req.body.adress,
+        phone: req.body.phone
+    }
+
+    await Consumer.create(userData);
+    mailHandler.sendMail(userData);
+
+    res.redirect('/success');
+}   

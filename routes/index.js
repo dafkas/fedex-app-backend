@@ -6,7 +6,15 @@ const packageController = require('../controllers/packageController');
 const deliveryController = require('../controllers/deliveryController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
-router.post('/register', catchErrors(authController.register));
+router.get('/webshop', catchErrors(authController.packageOrderPage));
+
+router.get('/success', (req, res) => {
+    res.send('Email successfully send!');
+})
+
+router.post('/createOrder', catchErrors(authController.createAccount));
+
+// router.post('/register', catchErrors(authController.register));
 
 router.post(
     '/package',
@@ -21,6 +29,7 @@ router.get(
     '/delivery/:delivererId',
     catchErrors(deliveryController.getDeliveries)
 );
+
 
 router.use('*', (req, res) =>
     res.status(404).json({
