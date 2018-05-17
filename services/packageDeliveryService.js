@@ -59,7 +59,8 @@ const createDelivery = async ({ delivererId, package }) =>
     await new Delivery({
         deliverer: mongoose.Types.ObjectId(delivererId),
         packages: package._id,
-        hasPassedBatch: false
+        hasPassedBatch: false,
+        date: new Date().toString()
     }).save();
 
 const createPackage = async ({ consumerId, ...address }) => {
