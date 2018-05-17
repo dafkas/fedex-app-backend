@@ -14,6 +14,10 @@ const app = express();
 // Set public folder
 app.use(express.static(path.join(__dirname, '../public')));
 
+//view engine setup. Using Pug in views directory
+app.set('views', path.join(__dirname, '../views'));
+app.set('view engine', 'pug');
+
 // Express Session Middleware
 app.use(
     session({
