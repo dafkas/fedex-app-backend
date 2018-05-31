@@ -35,6 +35,14 @@ router.post(
     )
 );
 
+router.post(
+    '/profile',
+    catchErrors(
+        authController.getProfile,
+    )
+);
+
+
 router.use('*', (req, res) =>
     res.status(404).json({
         error: 'Endpoint does not exist'
