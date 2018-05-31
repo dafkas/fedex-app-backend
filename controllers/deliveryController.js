@@ -4,11 +4,11 @@ const Deliverer = require("../models/Deliverer");
 const Delivery = require("../models/Delivery");
 
 const getDeliveries = async (req, res) => {
-    console.log("HERHE");
+    console.log(req.params.delivererId.length);
     //FIXME: Deep aggregate address and consumer
 
     const deliveries = await Delivery.find({
-        deliverer: req.params.delivererId
+        deliverer: mongoose.Types.ObjectId(req.params.delivererId)
     })
         .populate({
             path: "packages",
@@ -21,11 +21,9 @@ const getDeliveries = async (req, res) => {
             path: "packages",
             populate: {
                 path: "consumer",
-                select: "name email phone"
+                select: "name email phone size weight"
             }
         });
-
-    // .populate({ path: "packages.consumer", select: "email phone name" });
 
     return res.status(200).json({ deliveries });
 };

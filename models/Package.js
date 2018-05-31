@@ -15,7 +15,13 @@ const packageSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'Delivery'
         }
-    ]
+    ],
+    size: {
+        type: Number
+    },
+    weight: {
+        type: Number
+    }
 });
 
 module.exports = mongoose.model('Package', packageSchema);
