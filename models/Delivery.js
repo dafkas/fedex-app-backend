@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const deliverySchema = new mongoose.Schema({
     isAtHome: {
@@ -6,12 +6,12 @@ const deliverySchema = new mongoose.Schema({
     },
     deliverer: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Deliverer'
+        ref: "Deliverer"
     },
     packages: [
         {
             type: mongoose.Schema.ObjectId,
-            ref: 'Package'
+            ref: "Package"
         }
     ],
     note: {
@@ -19,7 +19,10 @@ const deliverySchema = new mongoose.Schema({
     },
     hasPassedBatch: {
         type: Boolean
+    },
+    date: {
+        type: String
     }
 });
 
-module.exports = mongoose.model('Delivery', deliverySchema);
+module.exports = mongoose.model("Delivery", deliverySchema);
