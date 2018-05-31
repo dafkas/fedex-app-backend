@@ -16,9 +16,9 @@ exports.sendMail = async userData => {
         subject: "Registration mail",
         html: `<p>Hi ${
             userData.name
-        } thanks for registering the fedex delivery app, see login credentials below: </p><p><b>Username: </b>${
+            } thanks for registering the fedex delivery app, see login credentials below: </p><p><b>Username: </b>${
             userData.username
-        }</p><p><b>Password: </b>${userData.password}</p>`
+            }</p><p><b>Password: </b>${userData.password}</p>`
     };
 
     await client.sendMail(email);

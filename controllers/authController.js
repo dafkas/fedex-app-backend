@@ -27,15 +27,26 @@ const login = async (req, res) => {
     await Consumer.findOne({ username: req.body.username, password: req.body.password }, function (err, result) {
         if (err) console.log(err);
         if (!result) {
-            return res.json('Username or password incorrect');
+            console.log('username or password incorrect');
+            return res.send(401);
         } else {
-            return res.json('loggedIn');
+            console.log('loggedIn');
+            return res.json(result)
         }
     });
 };
 
+const getProfile = async (req, res) => {
+    await Consumer.findOne({ _id: req.body._id }, function (err, result) {
+        if (err) console.log(err);
+        console.log('userData:', result);
+        return res.json(result)
+    });
+}
+
 module.exports = {
     packageOrderPage,
     createAccount,
-    login
+    login,
+    getProfile
 };
