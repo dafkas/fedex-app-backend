@@ -90,7 +90,7 @@ const createPackage = async ({ consumerId, ...address }) => {
             elevator_present:
                 Math.ceil(Math.random() >= 0.5),
             weather_conditions:
-                Math.ceil(randomInRange(0, 5))
+                Math.ceil(randomInRange(0, 4))
         }
     });
     await package.save();
