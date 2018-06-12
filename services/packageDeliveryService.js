@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Delivery = require("../models/Delivery");
 const Package = require("../models/Package");
 const Address = require("../models/Address");
-
+const randomInRange = (min, max) => Math.random() * (max - min + 1) + min
 const updateDeliveryAtHomeStatus = async ({ deliveryId, atHome }) => {
     // console.log();
     await Delivery.findOneAndUpdate(
@@ -77,7 +77,19 @@ const createPackage = async ({ consumerId, ...address }) => {
 
     const package = new Package({
         consumer: mongoose.Types.ObjectId(consumerId),
-        address: addressInstance._id
+        address: addressInstance._id,
+        meta: {
+            weight:
+                randomInRange(0.5, 30),
+            size:
+                randomInRange(10, 100),
+            floor_num:
+                randomInRange(0, 44),
+            elevator_present:
+                Math.random() >= 0.5,
+            weather_conditions:
+                randomInRange(0, 5)
+        }
     });
     await package.save();
 
