@@ -80,6 +80,7 @@ const createPackage = async ({ consumerId, ...address }) => {
     const package = new Package({
         consumer: mongoose.Types.ObjectId(consumerId),
         address: addressInstance._id,
+        timestamp_start_day: Date.now(),
         meta: {
             weight:
                 Math.ceil(randomInRange(0.5, 30)),
