@@ -20,7 +20,7 @@ const updateDeliveryAtHomeStatus = async ({ deliveryId, atHome }) => {
 
 const updateDeliveryNotification = async ({ deliveryId, note }) => {
     await Delivery.findOneAndUpdate(
-        { _id: mongoose.Types.ObjectId(delivererId) },
+        { _id: mongoose.Types.ObjectId(deliveryId) },
         { note }
     ).exec();
     // TODO: send out socket to deliverer client to refresh
