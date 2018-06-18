@@ -10,16 +10,7 @@ html
         meta(name='viewport', content='width=device-width', initial-scale=1)
     body
         block content
-            div.welcome-div
-                i.material-icons.cart-icon shopping_cart
-                p.welcome-text Welcome to the order form
-            div.order-form
-                form.form(action="/createOrder" method="POST" novalidate)
-                    input(type="text", name="name", placeholder="Name")
-                    input(type="email", name="email", placeholder="Email")
-                    input(type="text", name="adress", placeholder="Adress")
-                    input(type="text", name="phone", placeholder="Phone")
-                    input.btn(type="submit", value="Register")
+            p.success-text Email successfully send
     block scripts
         script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")

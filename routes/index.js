@@ -10,7 +10,7 @@ router.get('/webshop', catchErrors(authController.packageOrderPage));
 router.post('/createOrder', catchErrors(authController.createAccount));
 
 router.get('/success', (req, res) => {
-    res.send('Email successfully send!');
+    res.render('../views/success.pug')
 });
 
 router.post(
