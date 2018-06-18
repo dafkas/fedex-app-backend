@@ -3,6 +3,8 @@ const Delivery = require("../models/Delivery");
 const Package = require("../models/Package");
 const Address = require("../models/Address");
 
+const randomInRange = (min, max) => Math.random() * (max - min + 1) + min;
+
 const updateDeliveryAtHomeStatus = async ({ deliveryId, atHome }) => {
     // console.log();
     await Delivery.findOneAndUpdate(
@@ -62,35 +64,6 @@ const createDelivery = async ({ delivererId, package }) =>
         date: new Date().toString()
     }).save();
 
-const createPackage = async ({ consumerId, ...address }) => {
-    const { zip, number, street } = address;
-
-    let addressInstance = await Address.findOne({
-        $and: [{ zip }, { number }, { street }]
-    });
-
-    if (!addressInstance) {
-        addressInstance = new Address(address);
-        await addressInstance.save();
-    }
-
-    const package = new Package({
-        consumer: mongoose.Types.ObjectId(consumer._id),
-        address: addressInstance._id
-    });
-    await package.save();
-
-    return package;
-};
-
-module.exports = {
-    updateDeliveryAtHomeStatus,
-    updateDeliveryNotification,
-    updateDeliveriesForDelivery,
-    createPackage,
-    createDelivery
-};
-
 const randomFloatInRange = (min, max) => Math.random() * (max - min + 1) + min;
 
 const createPackage = async ({ consumerId, ...address }) => {
@@ -123,4 +96,11 @@ const createPackage = async ({ consumerId, ...address }) => {
     await package.save();
 
     return package;
+};
+module.exports = {
+    updateDeliveryAtHomeStatus,
+    updateDeliveryNotification,
+    updateDeliveriesForDelivery,
+    createPackage,
+    createDelivery
 };
