@@ -71,15 +71,10 @@ const createPackage = async ({ consumerId, ...address }) => {
     const existingConsumers = await Consumer.find();
 
     const randomConsumer =
-        existingConsumers[randomFloatInRange(0, existingConsumers.length)];
-    console.log(
-        "RANDOM",
-        randomFloatInRange(0, existingConsumers.length),
-        "ITEM",
-        existingConsumers[0],
-        "LENGTH",
-        existingConsumers.length
-    );
+        existingConsumers[
+            Math.floor(randomFloatInRange(0, existingConsumers.length))
+        ];
+
     const { zip, number } = address;
 
     let addressInstance = await Address.findOne({
