@@ -62,6 +62,7 @@ const createDelivery = async ({ delivererId, package }) =>
         deliverer: mongoose.Types.ObjectId(delivererId),
         packages: package._id,
         hasPassedBatch: false,
+
         date: new Date().toString()
     }).save();
 
