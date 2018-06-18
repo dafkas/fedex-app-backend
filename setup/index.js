@@ -23,7 +23,7 @@ ioServer.on("connection", socket => {
         // consumer = 5ac383eb7746fb3c67364b84
         // deliverer = 5ac38977f36d287dbca60345
 
-	console.log("PACKAGE HAS BEEN SCANNED", socket.emit);
+        console.log("PACKAGE HAS BEEN SCANNED", socket.emit);
         const package = await createPackage(payload);
 
         await createDelivery({ ...payload, package });
@@ -37,16 +37,15 @@ ioServer.on("connection", socket => {
 
     // HINT: Consumer has updated his at home status
     socket.on("delivery:change-home-notification", async payload => {
-	console.log(payload)
+        console.log(payload);
         await updateDeliveryAtHomeStatus(payload);
-        socket.broadcast.emit("delivery:data-update", {})
+        socket.broadcast.emit("delivery:data-update", {});
     });
     // HINT: Consumer has updated his note
     socket.on("delivery:change-note", async payload => {
-	console.log(payload)
+        console.log(payload);
         await updateDeliveryNotification(payload);
-        socket.emit("delivery:data-update", {});
-
+        socket.broadcast.emit("delivery:data-update", {});
     });
 });
 
