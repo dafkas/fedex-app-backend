@@ -4,7 +4,6 @@ const Deliverer = require("../models/Deliverer");
 const Delivery = require("../models/Delivery");
 
 const getDeliveries = async (req, res) => {
-    console.log(req.params.delivererId.length);
     //FIXME: Deep aggregate address and consumer
 
     const deliveries = await Delivery.find({

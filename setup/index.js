@@ -30,9 +30,9 @@ ioServer.on("connection", socket => {
     });
 
     // HINT: A batch of packages has been scanned, delete double consumers (add to a single delivery)
-    socket.on("package:done-scanning", async ({ delivererId }) => {
+    socket.on("package:done-scanning", payload => {
         // await updateDeliveriesForDelivery(delivererId);
-        socket.emit("delivery:init", {});
+        socket.broadcast.emit("delivery:init", payload);
     });
 
     // HINT: Consumer has updated his at home status
