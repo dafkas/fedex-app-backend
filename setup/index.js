@@ -43,8 +43,10 @@ ioServer.on("connection", socket => {
     });
     // HINT: Consumer has updated his note
     socket.on("delivery:change-note", async payload => {
-        await updateDeliveryNotification(...payload);
-        socket.broadcast.emit("delivery:data-update", {});
+	console.log(payload)
+        await updateDeliveryNotification(payload);
+        socket.emit("delivery:data-update", {});
+
     });
 });
 
