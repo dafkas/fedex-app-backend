@@ -21,7 +21,6 @@ const updateDeliveryNotification = async (deliveryId, note) => {
         { note }
     ).exec();
     // TODO: send out socket to deliverer client to refresh
-    console.log("DONE");
     // return res.status(202).json({ message: 'succes' });
 };
 
@@ -64,10 +63,10 @@ const createDelivery = async ({ delivererId, package }) =>
     }).save();
 
 const createPackage = async ({ consumerId, ...address }) => {
-    const { zip, number } = address;
+    const { zip, number, street } = address;
 
     let addressInstance = await Address.findOne({
-        $and: [{ zip }, { number }]
+        $and: [{ zip }, { number }, { street }]
     });
 
     if (!addressInstance) {
@@ -76,7 +75,7 @@ const createPackage = async ({ consumerId, ...address }) => {
     }
 
     const package = new Package({
-        consumer: mongoose.Types.ObjectId(consumerId),
+        consumer: mongoose.Types.ObjectId(consumer._id),
         address: addressInstance._id
     });
     await package.save();
@@ -90,4 +89,38 @@ module.exports = {
     updateDeliveriesForDelivery,
     createPackage,
     createDelivery
+};
+
+const randomFloatInRange = (min, max) => Math.random() * (max - min + 1) + min;
+
+const createPackage = async ({ consumerId, ...address }) => {
+    const existingConsumers = await Consumer.find();
+    const randomConsumer =
+        existingConsumers[randomFloatInRange(0, existingConsumers.length)];
+
+    const { zip, number } = address;
+
+    let addressInstance = await Address.findOne({
+        $and: [{ zip }, { number }]
+    });
+
+    if (!addressInstance) {
+        addressInstance = new Address(address);
+        await addressInstance.save();
+    }
+
+    const package = new Package({
+        consumer: mongoose.Types.ObjectId(randomConsumer._id),
+        address: addressInstance._id,
+        meta: {
+            weight: Math.ceil(randomInRange(0.5, 30)),
+            size: Math.ceil(randomInRange(10, 100)),
+            floor_num: Math.ceil(randomInRange(0, 44)),
+            elevator_present: Math.ceil(Math.random() >= 0.5),
+            weather_conditions: Math.ceil(randomInRange(0, 4))
+        }
+    });
+    await package.save();
+
+    return package;
 };
