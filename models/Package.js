@@ -29,6 +29,9 @@ const packageSchema = new mongoose.Schema({
         ref: 'Consumer',
         required: 'Consumer is required'
     },
+    timestamp_start_day: {
+        type: Number
+    },
     deliveries: [
         {
             type: mongoose.Schema.ObjectId,
