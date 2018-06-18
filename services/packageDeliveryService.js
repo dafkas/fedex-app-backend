@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Delivery = require("../models/Delivery");
+const Consumer = require("../models/Consumer");
 const Package = require("../models/Package");
 const Address = require("../models/Address");
 
