@@ -18,7 +18,7 @@ const updateDeliveryAtHomeStatus = async ({ deliveryId, atHome }) => {
     // return res.status(202).json({ message: 'succes' });
 };
 
-const updateDeliveryNotification = async (deliveryId, note) => {
+const updateDeliveryNotification = async ({ deliveryId, note }) => {
     await Delivery.findOneAndUpdate(
         { _id: mongoose.Types.ObjectId(delivererId) },
         { note }
